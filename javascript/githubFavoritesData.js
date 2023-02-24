@@ -24,10 +24,10 @@ export class GithubData{
     }]
   }
 
-  deleteUser(user){
-    const filterUserForDelete = this.userEntries.filter(userEntry => userEntry.login !== user.login);
+  deleteUser(userDelete){
+    const filterUserForDelete = this.userEntries.filter(userEntry => userEntry.login !== userDelete.login);
     this.userEntries = filterUserForDelete
-    
+
     this.updateScreen()
   }
   
@@ -46,17 +46,14 @@ export class GithubData{
 
 
       row.querySelector('.remove').onclick = () => {
-        const isOk = confirm('Deseja realmente deletar esse usuário ?')
+        const confirmForDelete = confirm('Deseja realmente deletar esse usuário ?')
 
-        if(isOk){
+        if(confirmForDelete){
           this.deleteUser(user)
         }
       }
       
-        
-      
 
-     
 
       this.tbody.append(row)
 
