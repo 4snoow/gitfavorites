@@ -9,27 +9,22 @@ export class GithubData{
   }
 
   loadUserEntries(){
-    this.userEntries = [
-    {
-      login:'4snoow',
-      name:'Gabriel Bastos',
-      public_repos: 123,
-      followers: 1234,
-    },
-    {
-      login:'maykbrito',
-      name:'Mayk Brito',
-      public_repos:12,
-      followers:1234
-    }]
+    this.userEntries = JSON.parse(localStorage.getItem('@userGithub')) || []
+    // [
+    // {
+    //   login:'4snoow',
+    //   name:'Gabriel Bastos',
+    //   public_repos: 123,
+    //   followers: 1234,
+    // },
+    // {
+    //   login:'maykbrito',
+    //   name:'Mayk Brito',
+    //   public_repos:12,
+    //   followers:1234
+    // }]
   }
 
-  deleteUser(userDelete){
-    const filterUserForDelete = this.userEntries.filter(userEntry => userEntry.login !== userDelete.login);
-    this.userEntries = filterUserForDelete
-
-    this.updateScreen()
-  }
   
   updateScreen(){
     this.removetrElement()
@@ -59,7 +54,6 @@ export class GithubData{
 
     })
   }
-
 
 
 
