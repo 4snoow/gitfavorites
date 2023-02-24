@@ -45,6 +45,7 @@ export class GithubData{
       } 
 
       this.userEntries = [apiGit, ...this.userEntries]
+
       this.updateScreen()
       this.saveUserEntries()
 
@@ -53,10 +54,22 @@ export class GithubData{
     }
   }
 
+  hideNoFavoriteDiv(){
+    const noFavoritesDiv = this.root.querySelector('.no-favorites')
+
+    if(this.userEntries.length >= 1){
+      noFavoritesDiv.style.display='none'
+    } 
+    if(this.userEntries.length <= 0){
+      noFavoritesDiv.style.display='flex'
+    }
+
+  }
 
   updateScreen(){
     this.removetrElement()
-    
+    this.hideNoFavoriteDiv()
+
     this.userEntries.forEach(user => {
       const row = this.createCustomtrElement()
       
@@ -74,12 +87,11 @@ export class GithubData{
           this.deleteUser(user)
         }
       }
-
+      
       this.tbody.append(row)
 
     })
   }
-
 
 
 
