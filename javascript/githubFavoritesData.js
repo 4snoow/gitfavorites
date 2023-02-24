@@ -3,28 +3,64 @@ import { GithubView } from "./githubFavoritesView.js";
 export class GithubData{
   constructor(root){
     this.root = document.querySelector(root);
-    this.tbody = document.querySelector('table tbody')
+    this.tbody = document.querySelector('table tbody');
+
+    this.loadUserEntries()
   }
 
   loadUserEntries(){
-    this.userEntries = {
-      username:'4snoow',
-      repositories: 123,
-      followers: 1234
+    this.userEntries = [
+    {
+      login:'4snoow',
+      name:'Gabriel Bastos',
+      public_repos: 123,
+      followers: 1234,
     },
     {
-      username:'maykbrito',
-      repositories:123,
-      followers:123
-    }
+      login:'maykbrito',
+      name:'Mayk Brito',
+      public_repos:12,
+      followers:1234
+    }]
   }
 
-   
-
-
+  deleteUser(user){
+    const filterUserForDelete = this.userEntries.filter(userEntry => userEntry.login !== user.login);
+    this.userEntries = filterUserForDelete
+    
+    this.updateScreen()
+  }
   
   updateScreen(){
     this.removetrElement()
+
+    this.userEntries.forEach(user => {
+      const row = this.createCustomtrElement()
+      
+      row.querySelector('.user img').src = `https://github.com/${user.login}.png`
+      row.querySelector('.user a').href = `https://github.com/${user.login}`
+      row.querySelector('.user p').textContent=`${user.name}`
+      row.querySelector('.user a span').textContent = `${user.login}`
+      row.querySelector('.repositories').textContent = `${user.public_repos}`
+      row.querySelector('.followers').textContent = `${user.followers}`
+
+
+      row.querySelector('.remove').onclick = () => {
+        const isOk = confirm('Deseja realmente deletar esse usuário ?')
+
+        if(isOk){
+          this.deleteUser(user)
+        }
+      }
+      
+        
+      
+
+     
+
+      this.tbody.append(row)
+
+    })
   }
 
 
@@ -37,8 +73,8 @@ export class GithubData{
     tr.innerHTML = 
     `
     <td class="user">
-      <img src="https://avatars.githubusercontent.com/u/61155055?v=4" alt="imagem de perfil do github">
-      <a href="#">
+      <img src="https://github.com/4snoow.png" alt="imagem de perfil do github" >
+      <a href=""https://github.com/4snoow" target = "_blank">
       <p>Gabriel Bastos</p>
       <span>4snoow</span>
       </a>
