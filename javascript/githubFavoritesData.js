@@ -11,7 +11,7 @@ export class GithubData{
   }
 
   loadUserEntries(){
-    this.userEntries = JSON.parse(localStorage.getItem('@userGithub')) || []
+    this.userEntries = JSON.parse(localStorage.getItem('@userGithub:')) || []
     // [
     // {
     //   login:'4snoow',
@@ -27,23 +27,36 @@ export class GithubData{
     // }]
   }
 
+  saveUserEntries(){
+    localStorage.setItem('@userGithub:', JSON.stringify(this.userEntries))
+  }
+
   async getUserByApi(username){
     try{
       const apiGit = await GithubAPI.getUser(username)
-      console.log(apiGit)
+      const userExist = this.userEntries.find(user => user.login.toUpperCase() === username.toUpperCase())
 
+      if(userExist){
+        throw new Error('Usuário já cadastrado')
+      }
+      
       if(apiGit.login === undefined){
         throw new Error('Usuário não encontrado!')   
       } 
+
+      this.userEntries = [apiGit, ...this.userEntries]
+      this.updateScreen()
+      this.saveUserEntries()
+
     } catch(error){
       alert(error.message)
     }
   }
 
-  
+
   updateScreen(){
     this.removetrElement()
-
+    
     this.userEntries.forEach(user => {
       const row = this.createCustomtrElement()
       
@@ -54,7 +67,6 @@ export class GithubData{
       row.querySelector('.repositories').textContent = `${user.public_repos}`
       row.querySelector('.followers').textContent = `${user.followers}`
 
-
       row.querySelector('.remove').onclick = () => {
         const confirmForDelete = confirm('Deseja realmente deletar esse usuário ?')
 
@@ -62,8 +74,6 @@ export class GithubData{
           this.deleteUser(user)
         }
       }
-      
-
 
       this.tbody.append(row)
 

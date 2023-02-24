@@ -9,10 +9,11 @@ export class GithubView extends GithubData{
   }
 
   deleteUser(userDelete){
-    const filterUserForDelete = this.userEntries.filter(userEntry => userEntry.login !== userDelete.login);
+    const filterUserForDelete = this.userEntries.filter(userEntry => userEntry.login !== userDelete.login)
     this.userEntries = filterUserForDelete
 
     this.updateScreen()
+    this.saveUserEntries()
   }
 
   addUser(){
@@ -20,9 +21,9 @@ export class GithubView extends GithubData{
 
     favoriteBtn.onclick = ()=>{
       const {value} = this.root.querySelector('.search input')
-
       this.getUserByApi(value)
     }
+
   }
   
 }
