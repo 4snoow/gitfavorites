@@ -1,4 +1,5 @@
 import { GithubData } from "./githubFavoritesData.js"
+import { GithubAPI } from "./githubAPI.js"
 
 export class GithubView extends GithubData{
   constructor(root){
@@ -19,6 +20,8 @@ export class GithubView extends GithubData{
 
     favoriteBtn.onclick = ()=>{
       const {value} = this.root.querySelector('.search input')
+
+      this.getUserByApi(value)
     }
   }
   

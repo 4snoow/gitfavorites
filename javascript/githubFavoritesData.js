@@ -1,4 +1,5 @@
 import { GithubView } from "./githubFavoritesView.js";
+import { GithubAPI } from "./githubAPI.js";
 
 export class GithubData{
   constructor(root){
@@ -6,6 +7,7 @@ export class GithubData{
     this.tbody = document.querySelector('table tbody');
 
     this.loadUserEntries()
+    
   }
 
   loadUserEntries(){
@@ -23,6 +25,19 @@ export class GithubData{
     //   public_repos:12,
     //   followers:1234
     // }]
+  }
+
+  async getUserByApi(username){
+    try{
+      const apiGit = await GithubAPI.getUser(username)
+      console.log(apiGit)
+
+      if(apiGit.login === undefined){
+        throw new Error('Usuário não encontrado!')   
+      } 
+    } catch(error){
+      alert(error.message)
+    }
   }
 
   
