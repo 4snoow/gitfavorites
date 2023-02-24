@@ -27,7 +27,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 O GitFavorites é um pequeno projeto para favoritar usuários do github. Utilizando conceitos de orientação a objetos, classes, API, localStorage, async await, promisses ...etc
 
-- [Acesse o projeto finalizado, online](https://linktree-devs.vercel.app/)
+- [Acesse o projeto finalizado, online](https://gitfavoritesgb.vercel.app/)
 
 
 ---
